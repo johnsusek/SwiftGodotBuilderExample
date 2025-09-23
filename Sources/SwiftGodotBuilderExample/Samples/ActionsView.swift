@@ -3,7 +3,17 @@ import SwiftGodot
 import SwiftGodotBuilder
 import SwiftGodotPatterns
 
-struct MyGameView: GView {
+struct ActionsView: GView {
+  init() {
+    let actions = Actions {
+      Action("up") { Key(.up) }
+      Action("down") { Key(.down) }
+      Action("left") { Key(.left) }
+      Action("right") { Key(.right) }
+    }
+    actions.install()
+  }
+
   var body: some GView {
     return CanvasLayer$ {
       Label$()

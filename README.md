@@ -1,6 +1,6 @@
 # SwiftGodotBuilder Example
 
-An empty project to start your [SwiftGodotBuilder](http://github.com/johnsusek/SwiftGodotBuilder) game.
+An example app demonstrating various aspects of using [SwiftGodotBuilder](http://github.com/johnsusek/SwiftGodotBuilder) & [SwiftGodotPatterns](https://github.com/johnsusek/SwiftGodotPatterns).
 
 > Try the [SwiftGodot Helper](https://marketplace.visualstudio.com/items?itemName=JohnSusek.swiftgodot) VSCode extension for easy builds in VSCode.
 

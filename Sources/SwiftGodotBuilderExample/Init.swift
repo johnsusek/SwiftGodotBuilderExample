@@ -2,11 +2,15 @@ import SwiftGodot
 import SwiftGodotBuilder
 
 func initHook(level: GDExtension.InitializationLevel) {
-  GD.print("initHook called with level \(level.rawValue)")
+  // If this message never appears, but you don't see any GDExtension errors,
+  // try to delete your .build/ folder.
+  GD.print("[SwiftGodot] initHook called with level \(level.rawValue)")
 
   if level == .scene {
-    GD.print("Registering MyGame")
-    register(type: MyGame.self)
+    // See GodotRegistry.append for a way to register classes in views that use
+    // them, instead of registering them all here.
+    register(type: GameRoot.self)
+    GD.print("[SwiftGodot] Registered GameRoot")
   }
 }
 
