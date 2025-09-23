@@ -1,0 +1,19 @@
+[configuration]
+entry_symbol = "swift_entry_point"
+compatibility_minimum = 4.2
+
+[libraries]
+windows.debug.x86_64 = "res://bin/SwiftGodotBuilderExample.dll"
+windows.release.x86_64 = "res://bin/SwiftGodotBuilderExample.dll"
+macos.debug = "res://bin/libSwiftGodotBuilderExample.dylib"
+macos.release = "res://bin/libSwiftGodotBuilderExample.dylib"
+linux.debug.x86_64 = "res://bin/libSwiftGodotBuilderExample.so"
+linux.release.x86_64 = "res://bin/libSwiftGodotBuilderExample.so"
+
+[dependencies]
+windows.debug.x86_64 ={ "res://bin/SwiftGodot.dll": "" }
+windows.release.x86_64 = { "res://bin/SwiftGodot.dll": "" }
+macos.debug = { "res://bin/libSwiftGodot.dylib": "Contents/Frameworks" }
+macos.release = { "res://bin/libSwiftGodot.dylib": "Contents/Frameworks" }
+linux.debug.x86_64 = { "res://bin/libSwiftGodot.so": "" }
+linux.release.x86_64 = { "res://bin/libSwiftGodot.so": "" }
