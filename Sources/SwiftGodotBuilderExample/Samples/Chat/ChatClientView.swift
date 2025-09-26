@@ -55,6 +55,7 @@ struct ChatClientView: GView {
     }
   }
 
+  /// Connects to the chat server when the scene is ready.
   public func onSceneReady(_: Node2D) {
     guard
       let ns = networkStore.node,
@@ -78,15 +79,6 @@ struct ChatClientView: GView {
   }
 
   func commit(_ intent: ChatIntent) {
-    // guard
-    //   let ns = networkStore.node,
-    //   let mp = ns.getTree()?.getMultiplayer(),
-    //   mp.hasMultiplayerPeer() || mp.isServer()
-    // else {
-    //   store.commit(intent)
-    //   return
-    // }
-
-    networkStore.node?.commit([intent])
+    networkStore.node?.commit(intent)
   }
 }

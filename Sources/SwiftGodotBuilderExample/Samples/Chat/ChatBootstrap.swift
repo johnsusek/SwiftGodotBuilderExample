@@ -5,7 +5,7 @@ import SwiftGodotPatterns
 
 private let store = Store<ChatModel, ChatIntent, ChatEvent>(model: .init())
 
-// We use this wrapper because the server doesn't need the UI.
+/// The entry point for the chat sample.
 func ChatRootView() -> any GView {
   register(type: GProcessRelay.self) // for .onReady
   register(type: NetworkStore.self)
@@ -16,6 +16,7 @@ func ChatRootView() -> any GView {
   return rootView()
 }
 
+/// The root view contains the network node and optionally the client view.
 func rootView() -> any GView {
   let mode = ChatOpts.parseChatCLI()
   let networkStore = Ref<NetworkStore>()
@@ -34,7 +35,7 @@ func rootView() -> any GView {
   }
 }
 
-// Brings up ENet in either server or client mode and attaches it to `MultiplayerAPI`.
+/// Brings up ENet in either server or client mode and attaches it to `MultiplayerAPI`.
 private func createPeer(mode: ChatNetMode, using netStore: NetworkStore) {
   guard let mpApi = Engine.getSceneTree()?.getMultiplayer() else { return }
 
