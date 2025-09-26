@@ -7,10 +7,7 @@ func initHook(level: GDExtension.InitializationLevel) {
   GD.print("[SwiftGodot] initHook called with level \(level.rawValue)")
 
   if level == .scene {
-    // See GodotRegistry.append for a way to register classes in views that use
-    // them, instead of registering them all here.
     register(type: GameRoot.self)
-    GD.print("[SwiftGodot] Registered GameRoot")
   }
 }
 
