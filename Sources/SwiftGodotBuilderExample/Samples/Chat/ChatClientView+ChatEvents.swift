@@ -4,24 +4,6 @@ import SwiftGodotBuilder
 import SwiftGodotPatterns
 
 extension ChatClientView {
-  /// Constructs the "is typing" indicator text based on who is typing.
-  private func buildIndicatorText(userId: PeerID) -> String {
-    let typing = store.model.users.values.filter { $0.isTyping && $0.id != userId }.map(\.displayName)
-    if typing.isEmpty { return "" }
-    if typing.count == 1 { return "\(typing[0]) is typing…" }
-    if typing.count == 2 { return "\(typing[0]) and \(typing[1]) are typing…" }
-    return "\(typing[0]), \(typing[1]) and \(typing.count - 2) others are typing…"
-  }
-
-  /// Updates the "is typing" indicator label when relevant events occur.
-  func updateIndicatorText(label: Label, ev: ChatEvent) {
-    switch ev {
-    case .typingChanged, .messagePosted:
-      label.text = buildIndicatorText(userId: userId)
-    default: break
-    }
-  }
-
   /// Scrolls the chat to the bottom when new messages arrive.
   func scrollToBottom(scroll: ScrollContainer, ev: ChatEvent) {
     switch ev {
@@ -54,8 +36,6 @@ extension ChatClientView {
         Label$().text(msg.text).size(.expandFill)
       }
       vbox.addChild(node: row.toNode())
-
-    default: break
     }
   }
 }

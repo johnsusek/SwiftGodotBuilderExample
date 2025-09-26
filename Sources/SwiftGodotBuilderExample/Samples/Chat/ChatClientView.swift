@@ -11,7 +11,6 @@ struct ChatClientView: GView {
   let inputRef = Ref<LineEdit>()
   let userName = "User\(Int.random(in: 100 ... 999))"
   var userId: PeerID { networkStore.node?.peerID ?? 0 }
-  var typingCooldown = GameTimer(duration: 1.2, repeats: false)
 
   var body: some GView {
     Node2D$ {
@@ -26,15 +25,10 @@ struct ChatClientView: GView {
           .size(.expandFill)
           .onEvent(ChatEvent.self, scrollToBottom)
 
-          Label$()
-            .text("")
-            .onEvent(ChatEvent.self, updateIndicatorText)
-
           if case .client = mode {
             HBoxContainer$ {
               LineEdit$()
                 .size(.expandFill)
-                .on(\.textChanged, onTextChanged)
                 .on(\.textSubmitted, onTextSubmitted)
                 .ref(inputRef)
 
@@ -50,9 +44,6 @@ struct ChatClientView: GView {
       }
     }
     .onReady(onSceneReady)
-    .onProcess { _, delta in
-      typingCooldown.tick(delta: delta)
-    }
   }
 
   /// Connects to the chat server when the scene is ready.
@@ -82,3 +73,5 @@ struct ChatClientView: GView {
     networkStore.node?.commit(intent)
   }
 }
+
+private func nowMs() -> Int64 { Int64(Date().timeIntervalSince1970 * 1000.0) }

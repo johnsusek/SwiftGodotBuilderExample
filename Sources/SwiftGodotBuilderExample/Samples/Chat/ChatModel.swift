@@ -7,12 +7,10 @@ public typealias PeerID = Int32
 public struct ChatUser: Codable, Equatable, Hashable {
   public var id: PeerID
   public var displayName: String
-  public var isTyping: Bool
 
-  public init(id: PeerID, displayName: String, isTyping: Bool = false) {
+  public init(id: PeerID, displayName: String) {
     self.id = id
     self.displayName = displayName
-    self.isTyping = isTyping
   }
 }
 
@@ -49,10 +47,6 @@ public struct ChatModel: Codable {
     messages.append(m)
     return m
   }
-
-  public mutating func setTyping(_ id: PeerID, _ typing: Bool, now _: Int64) {
-    users[id]?.isTyping = typing
-  }
 }
 
 // Intents are actions initiated by clients, sent to server for processing.
@@ -61,7 +55,6 @@ public enum ChatIntent: Codable {
   case join(id: PeerID, name: String)
   case leave(id: PeerID)
   case sendMessage(author: PeerID, text: String, atMillis: Int64)
-  case setTyping(id: PeerID, typing: Bool, atMillis: Int64)
 }
 
 // Events are server-initiated updates sent to all clients.
@@ -70,7 +63,6 @@ public enum ChatEvent: Codable {
   case userJoined(id: PeerID, name: String)
   case userLeft(id: PeerID)
   case messagePosted(msg: ChatMessage)
-  case typingChanged(id: PeerID, typing: Bool)
 }
 
 enum ChatNetMode {

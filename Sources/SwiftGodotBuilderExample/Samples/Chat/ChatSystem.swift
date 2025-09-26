@@ -20,10 +20,6 @@ let ChatSystem = GameSystem<ChatModel, ChatIntent, ChatEvent> { intents, model, 
       if trimmed.isEmpty { continue }
       let msg = model.appendMessage(author: author, text: trimmed, now: atMillis)
       events.append(.messagePosted(msg: msg))
-
-    case let .setTyping(id, typing, atMillis):
-      model.setTyping(id, typing, now: atMillis)
-      events.append(.typingChanged(id: id, typing: typing))
     }
   }
 }
