@@ -10,12 +10,13 @@ func ChatRootView() -> any GView {
   register(type: GProcessRelay.self) // for .onReady
   register(type: NetworkStore.self)
 
+  // The chat system handles intents and updates the model.
   store.register(ChatSystem)
 
-  return makeNode()
+  return rootView()
 }
 
-func makeNode() -> any GView {
+func rootView() -> any GView {
   let mode = ChatOpts.parseChatCLI()
   let networkStore = Ref<NetworkStore>()
 
@@ -23,7 +24,7 @@ func makeNode() -> any GView {
     GNode<NetworkStore>("NetSync")
       .configure { netStore in
         netStore.wire(to: store)
-        configureMultiplayer(mode: mode, for: netStore)
+        createPeer(mode: mode, using: netStore)
       }
       .ref(networkStore)
 
@@ -34,7 +35,7 @@ func makeNode() -> any GView {
 }
 
 // Brings up ENet in either server or client mode and attaches it to `MultiplayerAPI`.
-private func configureMultiplayer(mode: ChatNetMode, for netStore: NetworkStore) {
+private func createPeer(mode: ChatNetMode, using netStore: NetworkStore) {
   guard let mpApi = Engine.getSceneTree()?.getMultiplayer() else { return }
 
   switch mode {
