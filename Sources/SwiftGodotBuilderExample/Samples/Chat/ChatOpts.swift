@@ -2,8 +2,8 @@ import ArgumentParser
 
 // Command-line options for the chat sample app.
 // Example usage:
-// godot --path ./GodotProject/ -- chat --server --port 8989
-// godot --path ./GodotProject/ -- chat --client --host 127.0.0.1 --port 8989
+// godot --path ./GodotProject/ --headless -- --server --port 8989 --max-peers 64
+// godot --path ./GodotProject/ -- --client --host 127.0.0.1 --port 8989
 struct ChatOpts: ParsableArguments {
   @Flag(name: .customLong("server")) var server = false
   @Flag(name: .customLong("client")) var client = false
