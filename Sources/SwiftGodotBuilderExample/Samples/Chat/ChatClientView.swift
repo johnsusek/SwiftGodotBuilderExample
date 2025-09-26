@@ -58,39 +58,35 @@ struct ChatClientView: GView {
   public func onSceneReady(_: Node2D) {
     guard
       let ns = networkStore.node,
-      let mp = ns.getTree()?.getMultiplayer(),
-      mp.hasMultiplayerPeer()
+      let mpApi = ns.getTree()?.getMultiplayer(),
+      mpApi.hasMultiplayerPeer()
     else {
       return
     }
 
-    mp.connectedToServer.connect {
-      sendIntent(.join(id: ns.peerID, name: userName))
+    mpApi.connectedToServer.connect {
+      commit(.join(id: ns.peerID, name: userName))
     }
 
-    _ = mp.connectionFailed.connect {
+    _ = mpApi.connectionFailed.connect {
       GD.print("connection_failed")
     }
 
-    _ = mp.serverDisconnected.connect {
+    _ = mpApi.serverDisconnected.connect {
       GD.print("server_disconnected")
     }
   }
 
-  func sendIntent(_ intent: ChatIntent) {
-    guard
-      let ns = networkStore.node,
-      let mp = ns.getTree()?.getMultiplayer(),
-      mp.hasMultiplayerPeer() || mp.isServer()
-    else {
-      store.commit(intent)
-      return
-    }
+  func commit(_ intent: ChatIntent) {
+    // guard
+    //   let ns = networkStore.node,
+    //   let mp = ns.getTree()?.getMultiplayer(),
+    //   mp.hasMultiplayerPeer() || mp.isServer()
+    // else {
+    //   store.commit(intent)
+    //   return
+    // }
 
-    ns.sendIntents([intent])
+    networkStore.node?.commit([intent])
   }
 }
-
-// MARK: Chat Events
-
-// MARK: Signals
