@@ -4,7 +4,7 @@ import SwiftGodotBuilder
 import SwiftGodotPatterns
 
 extension ChatClientView {
-  private func indicatorLine(userId: PeerID) -> String {
+  private func buildIndicatorText(userId: PeerID) -> String {
     let typing = store.model.users.values.filter { $0.isTyping && $0.id != userId }.map(\.displayName)
     if typing.isEmpty { return "" }
     if typing.count == 1 { return "\(typing[0]) is typing…" }
@@ -15,7 +15,7 @@ extension ChatClientView {
   func updateIndicatorText(label: Label, ev: ChatEvent) {
     switch ev {
     case .typingChanged, .messagePosted:
-      label.text = indicatorLine(userId: userId)
+      label.text = buildIndicatorText(userId: userId)
     default: break
     }
   }
