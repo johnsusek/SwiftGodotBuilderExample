@@ -26,6 +26,9 @@ func PongPaddleView(side: PongSide) -> CharacterBody2D$ {
     input.poll(["\(side.rawValue)_move_up", "\(side.rawValue)_move_down"])
     let up = input.isDown("\(side.rawValue)_move_up")
     let down = input.isDown("\(side.rawValue)_move_down")
+
+    GlobalEventBuses.hub(PongControl.self).publish(.input(side: side, up: up, down: down))
+
     if up == down {
       cb.velocity = .zero
       cb.moveAndSlide()

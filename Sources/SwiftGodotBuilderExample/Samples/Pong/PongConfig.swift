@@ -40,7 +40,7 @@ let PongActions = Actions {
   )
 }
 
-public enum PongSide: String { case left, right }
+public enum PongSide: String, Codable { case left, right }
 
 public enum PongActor: String { case ball, paddles, walls, goals }
 
